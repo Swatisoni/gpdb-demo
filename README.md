@@ -51,12 +51,14 @@ docker network create -d bridge contbridge
 docker run -it  --network=contbridge -p 5432:5432 --name=gpdb jvawdrey/gpdb
 
 # build spark container
+# use --rm is you would like to cleanup/delete after exit
 #docker run -it --rm --network=contbridge -p 4040:4040 -p 8080:8080 -p 8081:8081 -h spark --name=spark p7hb/docker-spark
 docker run -it --network=contbridge -p 4040:4040 -p 8080:8080 -p 8081:8081 -h spark --name=spark p7hb/docker-spark
 # from within container
 start-master.sh && start-slave.sh spark://spark:7077
 
 # run jupyter-notebook container
+# use --rm is you would like to cleanup/delete after exit
 #docker run -it --rm --network=contbridge -p 8888:8888 --name=jupyter --mount type=bind,source=$(pwd)/notebooks,destination=/jupyter/notebooks jvawdrey/jupyter
 docker run -it --network=contbridge -p 8888:8888 --name=jupyter --mount type=bind,source=$(pwd)/notebooks,destination=/jupyter/notebooks jvawdrey/jupyter
 
